@@ -46,12 +46,13 @@ For testing a different "today": `TODAY=2026-12-01 node build.mjs`.
 
 ## Publishing
 
-Any static host works. Connect this repository and use:
+The site is published with GitHub Pages by `.github/workflows/pages.yml`. It runs whenever `main` changes and every night at 00:15, so "this week" and the archive stay correct. You can also run it by hand from the Actions tab ("Publish site", then "Run workflow").
 
-- Build command: `node build.mjs`
-- Output directory: `public`
+One-time setup in the repository's Settings: Pages, then Source: **GitHub Actions**. For a custom domain, add it under Settings, Pages, Custom domain, and create a CNAME record at your registrar pointing to `<username>.github.io`.
 
-Because "this week" and "past" depend on the day the site was built, the site should be rebuilt every day (most hosts can trigger a build on a schedule or from a webhook).
+GitHub pauses scheduled workflows in a public repository after 60 days without any activity. Adding events regularly counts as activity; if the nightly build ever stops, run the workflow once by hand.
+
+Any other static host also works: build command `node build.mjs`, output directory `public`.
 
 ## Design
 
