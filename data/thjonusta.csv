@@ -1,0 +1,13 @@
+# DÆMI. Skiptu þessum línum út fyrir raunverulega staði. Línur sem byrja á # eru hunsaðar.
+# Dálkar: flokkur, nafn, heimilisfang, tegund, simi, vefur, lysing
+flokkur,nafn,heimilisfang,tegund,simi,vefur,lysing
+Kaffihús & verslun,Dæmi: bakarí,Háaleitisbraut 12,Bakarí og kaffi,,,
+Kaffihús & verslun,Dæmi: matvöruverslun,Hagamelur 39,Matvöruverslun,,,
+Kaffihús & verslun,Dæmi: kaffihús,Lynghálsi 4,Kaffihús,,,
+Heilsa & vellíðan,Dæmi: heilsugæsla,Miklubraut 63,Heilsugæsla,,,
+Heilsa & vellíðan,Dæmi: sjúkraþjálfun,Stakkahlíð 17,Sjúkraþjálfun,,,
+Heilsa & vellíðan,Dæmi: hárgreiðslustofa,Miklubraut 20,Hársnyrting,,,
+Börn & skólar,Hlíðaskóli,Hamrahlíð 2,Grunnskóli,,,
+Börn & skólar,Dæmi: leikskóli,Drafnarsteinn 5,Leikskóli,,,
+Íþróttir & félög,Dæmi: íþróttafélag,Safamýri 26,Íþróttafélag,,,
+Íþróttir & félög,Dæmi: sundlaug,Hofsvallagata 1,Sundlaug,,,
