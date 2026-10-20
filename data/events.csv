@@ -1,0 +1,11 @@
+# DÆMI. Skiptu þessum línum út fyrir raunverulega viðburði. Línur sem byrja á # eru hunsaðar.
+# Dálkar: dagsetning (ÁÁÁÁ-MM-DD eða D.M.ÁÁÁÁ), klukkan, titill, stadur, flokkur, lysing, hlekkur, lykur (valfrjálst, fyrir námskeið)
+dagsetning,klukkan,titill,stadur,flokkur,lysing,hlekkur,lykur
+2026-10-09,11:00,Haustmarkaður í safnaðarheimilinu,Safnaðarheimili Háteigskirkju,Markaður,Kökur og handverk til styrktar æskulýðsstarfi.,,
+2026-10-15,20:00,Opið hús í Hlíðaskóla,Hlíðaskóli,Fundur,Foreldrum boðið að skoða nýja aðstöðu.,,
+2026-10-23,8:00,Nýtt bakarí opnar á Háaleitisbraut,Háaleitisbraut 12,Opnun,Dæmi um opnun: fyrstu 50 gestir fá kaffibolla frítt.,,
+2026-10-24,10:00–14:00,Skráning hefst hjá yngri flokkum,Íþróttahús,Íþróttir,Dæmi: allir aldurshópar velkomnir.,,
+2026-10-25,11:00,Messa í Háteigskirkju,Háteigskirkja,Kirkja,Guðsþjónusta og kaffisopi í safnaðarheimilinu á eftir.,,
+2026-10-26,20:00,Hverfisfundur um deiliskipulag,Hlíðaskóli,Fundur,Dæmi: opinn fundur á vegum borgarinnar.,,
+2026-10-29,,Ný hárgreiðslustofa opnar við Miklubraut,Miklubraut 20,Opnun,Dæmi: tímapantanir eru hafnar.,,
+2026-11-03,18:00,Byrjendanámskeið í leirlist,Listasmiðja í hverfinu,Námskeið,Dæmi: 6 vikur á þriðjudögum. Skráning hjá skipuleggjanda.,https://example.is/namskeid,2026-12-08
