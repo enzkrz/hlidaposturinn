@@ -228,12 +228,13 @@ ${list.map((e) => card(e, { week: k, helgin: [0, 6].includes(dow(toDay(e.date)))
     <span class="pill">Hlíðar · Reykjavík</span>
     <h1>${esc(site.name)}</h1>
     <p class="intro">Viðburðir, nýir staðir og annað markvert í hverfinu, tekið saman einu sinni í viku.</p>
-    <form class="signup" action="${esc(site.signupAction || "#")}" method="post"${site.signupAction ? "" : ' data-inactive="1"'}>
+${site.signupAction ? `
+    <form class="signup" action="${esc(site.signupAction)}" method="post">
       <label for="netfang" class="sr">Netfang</label>
       <input id="netfang" name="email" type="email" placeholder="netfang@example.is" autocomplete="email" required>
       <button type="submit">Skrá mig</button>
     </form>
-    <p class="helper" id="signup-status" role="status">Einn póstur í viku. Ekkert rusl.</p>
+    <p class="helper" id="signup-status" role="status">Einn póstur í viku. Ekkert rusl.</p>` : ""}
   </section>`;
 
   const main = `
@@ -317,9 +318,9 @@ ${list.map((r) => {
     <p>Veistu um viðburð, opnun eða breytingu í hverfinu? Sendu línu á <a href="mailto:${esc(site.tipEmail)}">${esc(site.tipEmail)}</a> og nefndu hvað, hvar og hvenær.</p>
     <h2>Þjónustuskráin</h2>
     <p>Þjónustuskráin er handunnin og uppfærð nokkrum sinnum á ári. Vantar stað eða þarf að laga upplýsingar? Láttu vita.</p>
-    <h2>Póstlistinn</h2>
+${site.signupAction ? `    <h2>Póstlistinn</h2>
     <p>Einn póstur í viku með því sem er framundan. Hægt er að afskrá sig hvenær sem er.</p>
-  </div>`;
+` : ""}  </div>`;
   pages.um = layout({ page: "um", title: "Um", root: "../", hero: pageHero("Um " + site.name, "Hverfisvefur fyrir Hlíðarnar."), main });
 }
 
