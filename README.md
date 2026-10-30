@@ -32,7 +32,7 @@ Lines starting with `#` are ignored. Upcoming events appear on the homepage grou
 `site.json`:
 
 - `tipEmail`: the address for tips (now a placeholder).
-- `signupAction`: the form address from the email tool (Buttondown, MailerLite, Brevo and so on). While it is empty the signup box only says that signup opens soon.
+- `signupAction`: the form address from the email tool (Buttondown, MailerLite, Brevo and so on). While it is empty, the signup box and the mailing-list paragraph on the Um page are hidden. Fill it in to show them.
 - `noindex`: `true` keeps the site out of search engines. Set it to `false` when you launch.
 
 ## Build and preview
