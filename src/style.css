@@ -87,6 +87,25 @@ main { flex: 1; }
 .btn:hover { background: #0b2f49; }
 .btn-outline { background: transparent; color: var(--blue); border: 1.5px solid var(--blue); }
 .btn-outline:hover { background: var(--surface-300); }
+
+/* Cards that open in place (events with texti / mynd) */
+.card.has-more { display: block; padding: 0; }
+.card.has-more summary.row { display: flex; align-items: center; gap: 24px; padding: 20px 24px; cursor: pointer; list-style: none; border-radius: 20px; }
+.card.has-more summary.row::-webkit-details-marker { display: none; }
+.card.has-more summary.row:focus-visible { outline: 3px solid var(--yellow); outline-offset: -3px; }
+.btn-more { display: inline-flex; align-items: center; gap: 8px; }
+.btn-more .t-open, details[open] .btn-more .t-closed { display: none; }
+details[open] .btn-more .t-open { display: inline; }
+.chev { width: 7px; height: 7px; margin-top: -3px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform .15s; }
+details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
+.more { display: grid; gap: 24px; margin: 0 24px; padding: 20px 0 24px; border-top: 1px solid var(--border); }
+.more.has-img { grid-template-columns: minmax(0, 1fr) minmax(0, 320px); align-items: start; }
+.more.is-wide { grid-template-columns: 1fr; }
+.more.is-wide img { max-width: 720px; max-height: none; }
+.more-text { max-width: 62ch; }
+.more-text p { margin: 0 0 12px; font-size: 16px; line-height: 1.6; color: inherit; }
+.more-text .btn { display: inline-block; margin-top: 4px; }
+.more img { width: 100%; height: auto; max-height: 480px; object-fit: contain; border-radius: 14px; background: var(--surface-300); }
 .is-past { background: #fdfcfa; }
 .is-past h3 { color: var(--ink-muted); }
 .is-past .tile { background: var(--surface-300); color: var(--ink-muted); }
@@ -131,6 +150,11 @@ main { flex: 1; }
   .tile .d { font-size: 26px; }
   .card h3 { font-size: 19px; }
   .card .btn { grid-column: 1 / -1; }
+  .card.has-more { display: block; padding: 0; }
+  .card.has-more summary.row { display: grid; grid-template-columns: 64px 1fr; gap: 14px 16px; padding: 16px; align-items: start; }
+  .more { margin: 0 16px; padding-top: 16px; padding-bottom: 18px; }
+  .more.has-img { grid-template-columns: 1fr; }
+  .more-text { max-width: none; }
   .facts { gap: 8px 28px; }
   .tip { flex-direction: column; align-items: stretch; text-align: left; padding: 20px; }
   .tip .btn { text-align: center; }
