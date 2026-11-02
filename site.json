@@ -3,5 +3,6 @@
   "description": "Viðburðir, nýir staðir og annað markvert í Hlíðunum í Reykjavík, tekið saman einu sinni í viku.",
   "tipEmail": "abendingar@example.is",
   "signupAction": "",
+  "showDirectory": false,
   "noindex": true
 }

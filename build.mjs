@@ -148,7 +148,7 @@ const NAV = [
 ];
 
 function layout({ page, title, root, hero, main }) {
-  const nav = NAV.map(([id, label, href]) =>
+  const nav = NAV.filter(([id]) => id !== "thjonusta" || site.showDirectory).map(([id, label, href]) =>
     `<a href="${root}${href}"${id === page ? ' aria-current="page"' : ""}>${label}</a>`).join("");
   const fullTitle = page === "index" ? site.name : `${title} · ${site.name}`;
   return `<!doctype html>
@@ -316,9 +316,9 @@ ${list.map((r) => {
     <p>${esc(site.name)} er lítil vikuleg samantekt fyrir Hlíðar í Reykjavík: viðburðir, nýir staðir og annað markvert í hverfinu. Hún er unnin af einum íbúa sem safnar upplýsingum úr hverfishópum, frá félögum og úr ábendingum sem berast.</p>
     <h2>Senda ábendingu</h2>
     <p>Veistu um viðburð, opnun eða breytingu í hverfinu? Sendu línu á <a href="mailto:${esc(site.tipEmail)}">${esc(site.tipEmail)}</a> og nefndu hvað, hvar og hvenær.</p>
-    <h2>Þjónustuskráin</h2>
+${site.showDirectory ? `    <h2>Þjónustuskráin</h2>
     <p>Þjónustuskráin er handunnin og uppfærð nokkrum sinnum á ári. Vantar stað eða þarf að laga upplýsingar? Láttu vita.</p>
-${site.signupAction ? `    <h2>Póstlistinn</h2>
+` : ""}${site.signupAction ? `    <h2>Póstlistinn</h2>
     <p>Einn póstur í viku með því sem er framundan. Hægt er að afskrá sig hvenær sem er.</p>
 ` : ""}  </div>`;
   pages.um = layout({ page: "um", title: "Um", root: "../", hero: pageHero("Um " + site.name, "Hverfisvefur fyrir Hlíðarnar."), main });
@@ -328,7 +328,7 @@ ${site.signupAction ? `    <h2>Póstlistinn</h2>
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 writeFileSync(join(OUT, "index.html"), pages.index);
-for (const p of ["thjonusta", "lidnir", "um"]) {
+for (const p of ["thjonusta", "lidnir", "um"].filter((x) => x !== "thjonusta" || site.showDirectory)) {
   mkdirSync(join(OUT, p), { recursive: true });
   writeFileSync(join(OUT, p, "index.html"), pages[p]);
 }
