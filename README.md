@@ -22,6 +22,8 @@ Events live in `data/events.csv`. You can open it in Excel, add a row, and save 
 | `mynd` | a picture shown next to the long text: put the file in `data/images/` and write only its name, for example `markadur.jpg`. Keep it under about 500 KB (optional) |
 | `hnappur` | the text on the link button, for example `Kaupa miða` or `Bóka söfnun`. When it is filled in, the button is yellow instead of blue (optional) |
 
+**Courses.** Give a course the tag `Námskeið`, the first day in `dagsetning` and the last day in `lykur`. It shows in the weekly list until it starts, then moves to "Námskeið í gangi" at the bottom until the last day, and then to the archive. A "Námskeið" filter button appears as soon as there is a course. List the individual dates in `texti`.
+
 Lines starting with `#` are ignored. Upcoming events appear on the homepage grouped as "Þessi vika", "Næsta vika" and "Síðar". Events whose date has passed move to "Liðnir viðburðir" by themselves. Weekends and Icelandic public holidays get the clay-colored date tile automatically.
 
 **The sample rows are placeholders.** Replace them with real events and real places before showing the site to anyone.

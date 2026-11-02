@@ -97,6 +97,8 @@ const slug = (s) =>
   s.toLowerCase().replace(/ð/g, "d").replace(/þ/g, "th").replace(/æ/g, "ae").replace(/ö/g, "o")
     .normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
+const isCourse = (e) => slug(e.tag || "") === "namskeid";
+
 // ---------- data ----------
 const events = readCsv(join(ROOT, "data/events.csv"))
   .map((r) => {
@@ -156,7 +158,7 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
         ${e.desc ? `<p>${esc(e.desc)}</p>` : ""}
         ${facts}
       </div>`;
-  const attrs = `data-week="${week}"${helgin ? ' data-helgin="1"' : ""}`;
+  const attrs = `data-week="${week}"${helgin ? ' data-helgin="1"' : ""}${isCourse(e) ? ' data-course="1"' : ""}`;
   const dim = e.img ? imgSize(e.img) : null;
   const wide = !!dim && dim.w / dim.h > 1.3;
   const paras = (e.more || "").split("||").map((t) => t.trim()).filter(Boolean);
@@ -253,12 +255,14 @@ const pages = {};
 // Index: upcoming events, grouped by week.
 {
   const thisMon = mondayOf(todayN);
-  const groups = { this: [], next: [], later: [] };
-  for (const e of upcoming) {
+  // A course shows in the weekly list until it starts; once it is running it moves to "Námskeið í gangi".
+  const running = upcoming.filter((e) => isCourse(e) && toDay(e.date) < todayN);
+  const groups = { this: [], next: [], later: [], running };
+  for (const e of upcoming.filter((e) => !running.includes(e))) {
     const w = Math.floor((mondayOf(eff(e)) - thisMon) / 7);
     (w <= 0 ? groups.this : w === 1 ? groups.next : groups.later).push(e);
   }
-  const heading = { this: "Þessi vika", next: "Næsta vika", later: "Síðar" };
+  const heading = { this: "Þessi vika", next: "Næsta vika", later: "Síðar", running: "Námskeið í gangi" };
   const horizon = todayN + 7;
   const sections = Object.entries(groups)
     .filter(([, list]) => list.length)
@@ -287,7 +291,8 @@ ${site.signupAction ? `
     <div class="filters" role="group" aria-label="Sía viðburði" hidden>
       <button type="button" class="chip is-on" data-filter="all">Allt</button>
       <button type="button" class="chip" data-filter="this">Þessi vika</button>
-      <button type="button" class="chip" data-filter="helgin">Helgin</button>
+      <button type="button" class="chip" data-filter="helgin">Helgin</button>${upcoming.some(isCourse) ? `
+      <button type="button" class="chip" data-filter="course">Námskeið</button>` : ""}
     </div>
 ${sections || '    <p class="empty">Engir viðburðir á dagskrá núna. Veistu um eitthvað? Sendu okkur línu.</p>'}
 ${tipCard}

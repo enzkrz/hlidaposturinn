@@ -12,7 +12,7 @@
       [].forEach.call(bar.querySelectorAll(".chip"), function (c) { c.classList.toggle("is-on", c === b); });
       var f = b.getAttribute("data-filter");
       cards.forEach(function (c) {
-        c.hidden = !(f === "all" || (f === "this" && c.dataset.week === "this") || (f === "helgin" && c.dataset.helgin === "1"));
+        c.hidden = !(f === "all" || (f === "this" && c.dataset.week === "this") || (f === "helgin" && c.dataset.helgin === "1") || (f === "course" && c.dataset.course === "1"));
       });
       groups.forEach(function (g) { g.hidden = !g.querySelector(".card:not([hidden])"); });
     });
