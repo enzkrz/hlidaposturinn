@@ -85,6 +85,8 @@ main { flex: 1; }
 .facts dd { margin: 0; font-size: 14px; font-weight: 500; }
 .btn { flex-shrink: 0; padding: 10px 20px; border-radius: 999px; background: var(--blue); color: #fff; font-size: 14px; font-weight: 600; text-align: center; }
 .btn:hover { background: #0b2f49; }
+.btn-action { background: var(--yellow); color: var(--blue); }
+.btn-action:hover { background: #e3a94f; }
 .btn-outline { background: transparent; color: var(--blue); border: 1.5px solid var(--blue); }
 .btn-outline:hover { background: var(--surface-300); }
 
