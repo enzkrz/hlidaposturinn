@@ -104,7 +104,7 @@ const events = readCsv(join(ROOT, "data/events.csv"))
     }
     const end = parseDate(r.lykur) || date;
     return { date, end: end < date ? date : end, time: r.klukkan, title: r.titill, place: r.stadur,
-      tag: r.flokkur, desc: r.lysing, link: r.hlekkur };
+      tag: r.flokkur, desc: r.lysing, link: r.hlekkur, more: r.texti, img: r.mynd };
   })
   .filter((e) => e && e.title);
 
@@ -120,13 +120,13 @@ past.sort((a, b) => b.date.localeCompare(a.date) || a.time.localeCompare(b.time)
 const fmtLong = (s) => `${+s.slice(8, 10)}. ${MON[+s.slice(5, 7) - 1]}`;
 const clock = (t) => (/^\d/.test(t) ? `kl. ${t}` : t);
 
-function card(e, { muted = false, week = "", helgin = false } = {}) {
+function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
   const n = toDay(e.date);
   const weekend = [0, 6].includes(dow(n)) || isHoliday(e.date);
   const when = [clock(e.time), e.end !== e.date ? `til ${fmtLong(e.end)}` : ""].filter(Boolean).join(" · ");
   const tagCls = slug(e.tag) === "opnun" ? " tag-opnun" : "";
-  return `
-    <article class="card${muted ? " is-past" : ""}" data-week="${week}"${helgin ? ' data-helgin="1"' : ""}>
+  const facts = e.place || when ? `<dl class="facts">${e.place ? `<div><dt>Hvar</dt><dd>${esc(e.place)}</dd></div>` : ""}${when ? `<div><dt>Hvenær</dt><dd>${esc(when)}</dd></div>` : ""}</dl>` : "";
+  const head = `
       <div class="tile${weekend ? " is-weekend" : ""}" aria-label="${esc(WD[dow(n)])} ${+e.date.slice(8, 10)}. ${esc(MON[+e.date.slice(5, 7) - 1])}">
         <span class="wd">${WD[dow(n)]}</span><span class="d">${+e.date.slice(8, 10)}</span><span class="m">${MON[+e.date.slice(5, 7) - 1]}</span>
       </div>
@@ -134,9 +134,31 @@ function card(e, { muted = false, week = "", helgin = false } = {}) {
         ${e.tag ? `<span class="tag${tagCls}"><i></i>${esc(e.tag)}</span>` : ""}
         <h3>${esc(e.title)}</h3>
         ${e.desc ? `<p>${esc(e.desc)}</p>` : ""}
-        ${e.place || when ? `<dl class="facts">${e.place ? `<div><dt>Hvar</dt><dd>${esc(e.place)}</dd></div>` : ""}${when ? `<div><dt>Hvenær</dt><dd>${esc(when)}</dd></div>` : ""}</dl>` : ""}
-      </div>
+        ${facts}
+      </div>`;
+  const attrs = `data-week="${week}"${helgin ? ' data-helgin="1"' : ""}`;
+  const paras = (e.more || "").split("||").map((t) => t.trim()).filter(Boolean);
+  if (!paras.length && !e.img) {
+    return `
+    <article class="card${muted ? " is-past" : ""}" ${attrs}>${head}
       ${e.link ? `<a class="btn" href="${esc(e.link)}" rel="noopener">Nánar <span aria-hidden="true">→</span></a>` : ""}
+    </article>`;
+  }
+  // With a longer text or a picture the whole card opens in place (plain <details>, works without JavaScript).
+  return `
+    <article class="card has-more${muted ? " is-past" : ""}" ${attrs}>
+      <details>
+        <summary class="row">${head}
+          <span class="btn btn-more"><span class="t-closed">Meira</span><span class="t-open">Minna</span> <span class="chev" aria-hidden="true"></span></span>
+        </summary>
+        <div class="more${e.img ? " has-img" : ""}">
+          <div class="more-text">
+            ${paras.map((t) => `<p>${esc(t)}</p>`).join("\n            ")}
+            ${e.link ? `<a class="btn btn-outline" href="${esc(e.link)}" rel="noopener">Skoða á vefnum <span aria-hidden="true">→</span></a>` : ""}
+          </div>
+          ${e.img ? `<img src="${root}images/${esc(e.img)}" alt="Veggspjald: ${esc(e.title)}" loading="lazy">` : ""}
+        </div>
+      </details>
     </article>`;
 }
 
@@ -220,7 +242,7 @@ const pages = {};
     .map(([k, list]) => `
     <section class="group" data-group="${k}">
       <h2 class="week">${heading[k]}</h2>
-${list.map((e) => card(e, { week: k, helgin: [0, 6].includes(dow(toDay(e.date))) && toDay(e.date) >= todayN && toDay(e.date) < horizon })).join("\n")}
+${list.map((e) => card(e, { root: "", week: k, helgin: [0, 6].includes(dow(toDay(e.date))) && toDay(e.date) >= todayN && toDay(e.date) < horizon })).join("\n")}
     </section>`).join("\n");
 
   const hero = `
@@ -260,7 +282,7 @@ ${tipCard}
       cur = key;
       html += `    <section class="group">\n      <h2 class="week">${MONTH_NAMES[+key.slice(5, 7) - 1]} ${key.slice(0, 4)}</h2>\n`;
     }
-    html += card(e, { muted: true }) + "\n";
+    html += card(e, { muted: true, root: "../" }) + "\n";
   }
   if (cur) html += "    </section>\n";
   const main = `
@@ -336,5 +358,6 @@ cpSync(join(ROOT, "src/style.css"), join(OUT, "style.css"));
 cpSync(join(ROOT, "src/site.js"), join(OUT, "site.js"));
 cpSync(join(ROOT, "src/favicon.svg"), join(OUT, "favicon.svg"));
 cpSync(join(ROOT, "src/fonts"), join(OUT, "fonts"), { recursive: true });
+if (existsSync(join(ROOT, "data/images"))) cpSync(join(ROOT, "data/images"), join(OUT, "images"), { recursive: true });
 writeFileSync(join(OUT, "robots.txt"), site.noindex ? "User-agent: *\nDisallow: /\n" : "User-agent: *\nAllow: /\n");
 console.log(`Búið til: ${upcoming.length} væntanlegir viðburðir, ${past.length} liðnir (í dag er ${TODAY}).`);
