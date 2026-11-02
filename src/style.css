@@ -100,6 +100,8 @@ details[open] .btn-more .t-open { display: inline; }
 details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
 .more { display: grid; gap: 24px; margin: 0 24px; padding: 20px 0 24px; border-top: 1px solid var(--border); }
 .more.has-img { grid-template-columns: minmax(0, 1fr) minmax(0, 320px); align-items: start; }
+.more.is-wide { grid-template-columns: 1fr; }
+.more.is-wide img { max-width: 720px; max-height: none; }
 .more-text { max-width: 62ch; }
 .more-text p { margin: 0 0 12px; font-size: 16px; line-height: 1.6; color: inherit; }
 .more-text .btn { display: inline-block; margin-top: 4px; }

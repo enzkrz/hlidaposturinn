@@ -120,6 +120,23 @@ past.sort((a, b) => b.date.localeCompare(a.date) || a.time.localeCompare(b.time)
 const fmtLong = (s) => `${+s.slice(8, 10)}. ${MON[+s.slice(5, 7) - 1]}`;
 const clock = (t) => (/^\d/.test(t) ? `kl. ${t}` : t);
 
+// Width and height of a JPEG or PNG in data/images (no dependencies); null if unknown.
+function imgSize(name) {
+  try {
+    const b = readFileSync(join(ROOT, "data/images", name));
+    if (b.readUInt32BE(0) === 0x89504e47) return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
+    if (b[0] === 0xff && b[1] === 0xd8) {
+      for (let i = 2; i < b.length - 9; ) {
+        if (b[i] !== 0xff) { i++; continue; }
+        const m = b[i + 1];
+        if (m >= 0xc0 && m <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(m)) return { h: b.readUInt16BE(i + 5), w: b.readUInt16BE(i + 7) };
+        i += 2 + b.readUInt16BE(i + 2);
+      }
+    }
+  } catch {}
+  return null;
+}
+
 function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
   const n = toDay(e.date);
   const weekend = [0, 6].includes(dow(n)) || isHoliday(e.date);
@@ -137,6 +154,8 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
         ${facts}
       </div>`;
   const attrs = `data-week="${week}"${helgin ? ' data-helgin="1"' : ""}`;
+  const dim = e.img ? imgSize(e.img) : null;
+  const wide = !!dim && dim.w / dim.h > 1.3;
   const paras = (e.more || "").split("||").map((t) => t.trim()).filter(Boolean);
   if (!paras.length && !e.img) {
     return `
@@ -151,12 +170,13 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
         <summary class="row">${head}
           <span class="btn btn-more"><span class="t-closed">Meira</span><span class="t-open">Minna</span> <span class="chev" aria-hidden="true"></span></span>
         </summary>
-        <div class="more${e.img ? " has-img" : ""}">
+        <div class="more${e.img ? (wide ? " has-img is-wide" : " has-img") : ""}">
+          ${e.img && wide ? `<img src="${root}images/${esc(e.img)}" alt="Veggspjald: ${esc(e.title)}" width="${dim.w}" height="${dim.h}" loading="lazy">` : ""}
           <div class="more-text">
             ${paras.map((t) => `<p>${esc(t)}</p>`).join("\n            ")}
             ${e.link ? `<a class="btn btn-outline" href="${esc(e.link)}" rel="noopener">Skoða á vefnum <span aria-hidden="true">→</span></a>` : ""}
           </div>
-          ${e.img ? `<img src="${root}images/${esc(e.img)}" alt="Veggspjald: ${esc(e.title)}" loading="lazy">` : ""}
+          ${e.img && !wide ? `<img src="${root}images/${esc(e.img)}" alt="Veggspjald: ${esc(e.title)}" loading="lazy">` : ""}
         </div>
       </details>
     </article>`;
