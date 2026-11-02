@@ -96,6 +96,9 @@ main { flex: 1; }
 .card.has-more summary.row::-webkit-details-marker { display: none; }
 .card.has-more summary.row:focus-visible { outline: 3px solid var(--yellow); outline-offset: -3px; }
 .btn-more { display: inline-flex; align-items: center; gap: 8px; }
+.card > .btn, .card summary .btn { min-width: 144px; }
+.card > .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.card summary .btn-more { justify-content: center; }
 .btn-more .t-open, details[open] .btn-more .t-closed { display: none; }
 details[open] .btn-more .t-open { display: inline; }
 .chev { width: 7px; height: 7px; margin-top: -3px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform .15s; }
