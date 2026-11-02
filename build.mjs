@@ -107,7 +107,7 @@ const events = readCsv(join(ROOT, "data/events.csv"))
     }
     const end = parseDate(r.lykur) || date;
     return { date, end: end < date ? date : end, time: r.klukkan, title: r.titill, place: r.stadur,
-      tag: r.flokkur, desc: r.lysing, link: r.hlekkur, more: r.texti, img: r.mynd };
+      tag: r.flokkur, desc: r.lysing, link: r.hlekkur, more: r.texti, img: r.mynd, action: r.hnappur };
   })
   .filter((e) => e && e.title);
 
@@ -163,7 +163,7 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
   if (!paras.length && !e.img) {
     return `
     <article class="card${muted ? " is-past" : ""}" ${attrs}>${head}
-      ${e.link ? `<a class="btn" href="${esc(e.link)}" rel="noopener">Nánar <span aria-hidden="true">→</span></a>` : ""}
+      ${e.link ? `<a class="btn${e.action ? " btn-action" : ""}" href="${esc(e.link)}" rel="noopener">${esc(e.action || "Nánar")} <span aria-hidden="true">→</span></a>` : ""}
     </article>`;
   }
   // With a longer text or a picture the whole card opens in place (plain <details>, works without JavaScript).
@@ -177,7 +177,7 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
           ${e.img && wide ? `<img src="${root}images/${esc(e.img)}" alt="Veggspjald: ${esc(e.title)}" width="${dim.w}" height="${dim.h}" loading="lazy">` : ""}
           <div class="more-text">
             ${paras.map((t) => `<p>${esc(t)}</p>`).join("\n            ")}
-            ${e.link ? `<a class="btn btn-outline" href="${esc(e.link)}" rel="noopener">Skoða á vefnum <span aria-hidden="true">→</span></a>` : ""}
+            ${e.link ? `<a class="btn ${e.action ? "btn-action" : "btn-outline"}" href="${esc(e.link)}" rel="noopener">${esc(e.action || "Skoða á vefnum")} <span aria-hidden="true">→</span></a>` : ""}
           </div>
           ${e.img && !wide ? `<img src="${root}images/${esc(e.img)}" alt="Veggspjald: ${esc(e.title)}" loading="lazy">` : ""}
         </div>

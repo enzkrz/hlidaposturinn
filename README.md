@@ -20,6 +20,7 @@ Events live in `data/events.csv`. You can open it in Excel, add a row, and save 
 | `lykur` | for a course, the last date; it stays on the homepage until then (optional) |
 | `texti` | the long text. When it is filled in, the card opens in place with a "Meira" button. Separate paragraphs with `||` (optional) |
 | `mynd` | a picture shown next to the long text: put the file in `data/images/` and write only its name, for example `markadur.jpg`. Keep it under about 500 KB (optional) |
+| `hnappur` | the text on the link button, for example `Kaupa miða` or `Bóka söfnun`. When it is filled in, the button is yellow instead of blue (optional) |
 
 Lines starting with `#` are ignored. Upcoming events appear on the homepage grouped as "Þessi vika", "Næsta vika" and "Síðar". Events whose date has passed move to "Liðnir viðburðir" by themselves. Weekends and Icelandic public holidays get the clay-colored date tile automatically.
 
