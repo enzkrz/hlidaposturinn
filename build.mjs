@@ -2,10 +2,13 @@
 // Reads data/events.csv and data/thjonusta.csv, writes the site to public/.
 import { readFileSync, writeFileSync, mkdirSync, cpSync, rmSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const OUT = join(ROOT, "public");
+// A short fingerprint of a file, added to its address so browsers fetch the new version after every change.
+const fp = (f) => createHash("md5").update(readFileSync(join(dirname(fileURLToPath(import.meta.url)), f))).digest("hex").slice(0, 8);
 const site = JSON.parse(readFileSync(join(ROOT, "site.json"), "utf8"));
 
 // ---------- helpers ----------
@@ -203,7 +206,7 @@ function layout({ page, title, root, hero, main }) {
   ${site.noindex ? '<meta name="robots" content="noindex, nofollow">' : ""}
   <link rel="icon" href="${root}favicon.svg" type="image/svg+xml">
   <link rel="preload" href="${root}fonts/outfit-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="${root}style.css">
+  <link rel="stylesheet" href="${root}style.css?v=${fp("src/style.css")}">
 </head>
 <body>
   <a class="skip" href="#efni">Fara beint í efnið</a>
@@ -223,7 +226,7 @@ ${main}
       <a href="mailto:${esc(site.tipEmail)}">Senda ábendingu</a>
     </div>
   </footer>
-${page === "index" ? `  <script src="${root}site.js" defer></script>` : ""}
+${page === "index" ? `  <script src="${root}site.js?v=${fp("src/site.js")}" defer></script>` : ""}
 </body>
 </html>
 `;
