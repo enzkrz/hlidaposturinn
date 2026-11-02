@@ -96,7 +96,7 @@ main { flex: 1; }
 .card.has-more summary.row::-webkit-details-marker { display: none; }
 .card.has-more summary.row:focus-visible { outline: 3px solid var(--yellow); outline-offset: -3px; }
 .btn-more { display: inline-flex; align-items: center; gap: 8px; }
-.card > .btn, .card summary .btn { min-width: 144px; }
+.card > .btn, .card summary .btn { min-width: 126px; padding: 8px 16px; font-size: 13.5px; }
 .card > .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
 .card summary .btn-more { justify-content: center; }
 .btn-more .t-open, details[open] .btn-more .t-closed { display: none; }
@@ -154,7 +154,7 @@ details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
   .tile { width: 56px; height: 64px; border-radius: 12px; }
   .tile .d { font-size: 22px; }
   .card h3 { font-size: 18px; }
-  .card .btn { grid-column: 2; justify-self: start; padding: 8px 18px; }
+  .card .btn { grid-column: 2; justify-self: start; }
   .filters { gap: 6px; }
   .chip { padding: 9px 14px; font-size: 13.5px; }
   .card.has-more { display: block; padding: 0; }
