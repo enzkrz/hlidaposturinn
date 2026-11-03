@@ -1,13 +1,7 @@
-# DÆMI. Skiptu þessum línum út fyrir raunverulega staði. Línur sem byrja á # eru hunsaðar.
+# Línur sem byrja á # eru hunsaðar.
 # Dálkar: flokkur, nafn, heimilisfang, tegund, simi, vefur, lysing
 flokkur,nafn,heimilisfang,tegund,simi,vefur,lysing
-Kaffihús & verslun,Dæmi: bakarí,Háaleitisbraut 12,Bakarí og kaffi,,,
-Kaffihús & verslun,Dæmi: matvöruverslun,Hagamelur 39,Matvöruverslun,,,
-Kaffihús & verslun,Dæmi: kaffihús,Lynghálsi 4,Kaffihús,,,
-Heilsa & vellíðan,Dæmi: heilsugæsla,Miklubraut 63,Heilsugæsla,,,
-Heilsa & vellíðan,Dæmi: sjúkraþjálfun,Stakkahlíð 17,Sjúkraþjálfun,,,
-Heilsa & vellíðan,Dæmi: hárgreiðslustofa,Miklubraut 20,Hársnyrting,,,
-Börn & skólar,Hlíðaskóli,Hamrahlíð 2,Grunnskóli,,,
-Börn & skólar,Dæmi: leikskóli,Drafnarsteinn 5,Leikskóli,,,
-Íþróttir & félög,Dæmi: íþróttafélag,Safamýri 26,Íþróttafélag,,,
-Íþróttir & félög,Dæmi: sundlaug,Hofsvallagata 1,Sundlaug,,,
+Skólar og leikskólar,Leikskólinn Hlíð,Eskihlíð 17,Leikskóli,411 3580,https://reykjavik.is/hlid,Starfar tímabundið í Eskihlíð 17 vegna framkvæmda við Engihlíð 6–8.
+Skólar og leikskólar,Klambrar,Háteigsvegur 33,Leikskóli með ungbarnadeild,411 3970,https://reykjavik.is/klambrar,
+Stofnanir og almenn þjónusta,Samfélagshúsið Bólstaðarhlíð 43,Bólstaðarhlíð 43,Félagsstarf,411 2660,https://reykjavik.is/bolstadarhlid-43,"Félagsstarf, hádegismatur og síðdegiskaffi. Opið virka daga kl. 8:30–16:00. Hárgreiðsla og nudd á staðnum."
+Stofnanir og almenn þjónusta,Heilsugæslan Hlíðum,Skógarhlíð 18,Heilsugæsla,513 5900,https://island.is/s/hh/hlidar,Opið virka daga kl. 8:00–17:00.
