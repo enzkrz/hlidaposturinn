@@ -42,6 +42,8 @@ h1, h2, h3, p { margin: 0; }
 /* hero */
 .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px var(--gutter) 44px; border-bottom: 1px solid var(--border); }
 .hero h1 { margin-top: 18px; font-size: clamp(34px, 7vw, 46px); line-height: 1.12; font-weight: 400; overflow-wrap: anywhere; }
+.hero-slim { padding: 22px var(--gutter) 24px; }
+.hero-slim .intro { margin-top: 0; font-size: 15.5px; }
 .hero-small { padding-bottom: 36px; }
 .hero-small h1 { margin-top: 0; }
 .intro { margin-top: 12px; max-width: 600px; font-size: 16px; text-wrap: balance; color: var(--ink-muted); }
@@ -149,6 +151,7 @@ details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
   .top nav { width: 100%; gap: 2px; flex-wrap: nowrap; margin: 0 -8px; }
   .top nav a { padding: 8px 11px; font-size: 13.5px; white-space: nowrap; }
   .hero { padding-top: 32px; padding-bottom: 32px; }
+  .hero-slim { padding-top: 18px; padding-bottom: 20px; }
   .wrap { margin-top: 32px; }
   .card { display: grid; grid-template-columns: 56px 1fr; gap: 10px 14px; padding: 12px 14px; align-items: start; }
   .tile { width: 56px; height: 64px; border-radius: 12px; }

@@ -272,7 +272,13 @@ const pages = {};
 ${list.map((e) => card(e, { root: "", week: k, helgin: [0, 6].includes(dow(toDay(e.date))) && toDay(e.date) >= todayN && toDay(e.date) < horizon })).join("\n")}
     </section>`).join("\n");
 
-  const hero = `
+  // Without a signup box the big header only repeats the top bar, so it shrinks to a single intro line.
+  const slim = !site.signupAction;
+  const hero = slim ? `
+  <section class="hero hero-slim">
+    <h1 class="sr">${esc(site.name)}</h1>
+    <p class="intro">Viðburðir, nýir staðir og annað markvert í hverfinu, tekið saman einu sinni í viku.</p>
+  </section>` : `
   <section class="hero">
     <span class="pill">Hlíðar · Reykjavík</span>
     <h1>${esc(site.name)}</h1>
