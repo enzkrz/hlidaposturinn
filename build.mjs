@@ -370,6 +370,8 @@ ${list.map((r) => {
   <div class="wrap prose">
     <h2>Hvað er þetta?</h2>
     <p>${esc(site.name)} er lítil vikuleg samantekt fyrir Hlíðar í Reykjavík: viðburðir, nýir staðir og annað markvert í hverfinu. Hún er unnin af einum íbúa sem safnar upplýsingum úr hverfishópum, frá félögum og úr ábendingum sem berast.</p>
+    <h2>Hvaða svæði?</h2>
+    <p>Hlíðar eru hér skilgreindar rúmt: Hlíðarnar sjálfar, Norðurmýri, Holt, Klambratún, Öskjuhlíð, Perlan, Nauthólsvík og Hlíðarendi. Mörkin eru Laugavegur í norðri, Kringlumýrarbraut í austri og sjórinn í suðri. Það sem er rétt fyrir utan en gagnlegt fyrir íbúa er merkt „Í nágrenninu“.</p>
     <h2>Senda ábendingu</h2>
     <p>Veistu um viðburð, opnun eða breytingu í hverfinu? Sendu línu á <a href="mailto:${esc(site.tipEmail)}">${esc(site.tipEmail)}</a> og nefndu hvað, hvar og hvenær.</p>
 ${site.showDirectory ? `    <h2>Þjónustuskráin</h2>
