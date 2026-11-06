@@ -147,10 +147,13 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
   const weekend = [0, 6].includes(dow(n)) || isHoliday(e.date);
   const when = [clock(e.time), e.end !== e.date ? `til ${fmtLong(e.end)}` : ""].filter(Boolean).join(" · ");
   const tagCls = slug(e.tag) === "opnun" ? " tag-opnun" : "";
+  // Happening today (or a multi-day event that is under way): blue frame and a blue date tile.
+  const now = !muted && n <= todayN && toDay(e.end) >= todayN && !(isCourse(e) && n < todayN);
+  const nowLabel = n === todayN ? "Í DAG" : "Í GANGI";
   const facts = e.place || when ? `<dl class="facts">${e.place ? `<div><dt>Hvar</dt><dd>${esc(e.place)}</dd></div>` : ""}${when ? `<div><dt>Hvenær</dt><dd>${esc(when)}</dd></div>` : ""}</dl>` : "";
   const head = `
-      <div class="tile${weekend ? " is-weekend" : ""}" aria-label="${esc(WD[dow(n)])} ${+e.date.slice(8, 10)}. ${esc(MON[+e.date.slice(5, 7) - 1])}">
-        <span class="wd">${WD[dow(n)]}</span><span class="d">${+e.date.slice(8, 10)}</span><span class="m">${MON[+e.date.slice(5, 7) - 1]}</span>
+      <div class="tile${now ? " is-now" : weekend ? " is-weekend" : ""}" aria-label="${now ? (n === todayN ? "Í dag, " : "Í gangi, ") : ""}${esc(WD[dow(n)])} ${+e.date.slice(8, 10)}. ${esc(MON[+e.date.slice(5, 7) - 1])}">
+        <span class="wd">${now ? nowLabel : WD[dow(n)]}</span><span class="d">${+e.date.slice(8, 10)}</span><span class="m">${MON[+e.date.slice(5, 7) - 1]}</span>
       </div>
       <div class="body">
         ${e.tag ? `<span class="tag${tagCls}"><i></i>${esc(e.tag)}</span>` : ""}
@@ -164,13 +167,13 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
   const paras = (e.more || "").split("||").map((t) => t.trim()).filter(Boolean);
   if (!paras.length && !e.img) {
     return `
-    <article class="card${muted ? " is-past" : ""}" ${attrs}>${head}
+    <article class="card${muted ? " is-past" : ""}${now ? " is-now" : ""}" ${attrs}>${head}
       ${e.link ? `<a class="btn${e.action ? " btn-action" : ""}" href="${esc(e.link)}" rel="noopener">${esc(e.action || "Nánar")} <span aria-hidden="true">→</span></a>` : ""}
     </article>`;
   }
   // With a longer text or a picture the whole card opens in place (plain <details>, works without JavaScript).
   return `
-    <article class="card has-more${muted ? " is-past" : ""}" ${attrs}>
+    <article class="card has-more${muted ? " is-past" : ""}${now ? " is-now" : ""}" ${attrs}>
       <details>
         <summary class="row">${head}
           <span class="btn btn-more"><span class="t-closed">Meira</span><span class="t-open">Minna</span> <span class="chev" aria-hidden="true"></span></span>
