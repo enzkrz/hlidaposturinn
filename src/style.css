@@ -71,7 +71,8 @@ main { flex: 1; }
 .card { display: flex; align-items: center; gap: 20px; padding: 14px 20px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 18px; background: #fff; }
 .tile { width: 68px; height: 74px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 14px; background: var(--surface-300); color: var(--blue); }
 .tile.is-weekend { background: var(--weekend-tint); color: var(--weekend); }
-.tile.is-now { background: var(--blue); color: #fff; }
+.tile.is-now { background: #fff; color: var(--blue); box-shadow: inset 0 0 0 1.5px var(--blue); }
+.tile.is-now .wd { letter-spacing: 0.04em; }
 .card.is-now { border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue); }
 .tile .wd { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; }
 .tile .d { font-size: 26px; line-height: 1.1; font-weight: 600; }
@@ -158,6 +159,7 @@ details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
   .card { display: grid; grid-template-columns: 56px 1fr; gap: 10px 14px; padding: 12px 14px; align-items: start; }
   .tile { width: 56px; height: 64px; border-radius: 12px; }
   .tile .d { font-size: 22px; }
+  .tile.is-now .wd { font-size: 10px; letter-spacing: 0.02em; }
   .card h3 { font-size: 18px; }
   .card .btn { grid-column: 2; justify-self: start; }
   .filters { gap: 6px; }
