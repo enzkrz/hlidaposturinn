@@ -60,7 +60,7 @@ const TODAY = process.env.TODAY || new Date().toISOString().slice(0, 10);
 const todayN = toDay(TODAY);
 
 const WD = ["SUN", "MÁN", "ÞRI", "MIÐ", "FIM", "FÖS", "LAU"];
-const MON = ["jan.", "feb.", "mar.", "apr.", "maí", "jún.", "júl.", "ágú.", "sep.", "okt.", "nóv.", "des."];
+const MON = ["jan", "feb", "mar", "apr", "maí", "jún", "júl", "ágú", "sep", "okt", "nóv", "des"];
 const MONTH_NAMES = ["janúar", "febrúar", "mars", "apríl", "maí", "júní", "júlí", "ágúst", "september", "október", "nóvember", "desember"];
 const dow = (n) => new Date(n * 86400000).getUTCDay(); // 0 = Sunday
 const mondayOf = (n) => n - ((dow(n) + 6) % 7);
