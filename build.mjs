@@ -260,7 +260,7 @@ const pages = {};
   const thisMon = mondayOf(todayN);
   // A course shows in the weekly list until it starts; once it is running it moves to "Námskeið í gangi".
   const running = upcoming.filter((e) => isCourse(e) && toDay(e.date) < todayN);
-  const groups = { this: [], next: [], later: [], running };
+  const groups = { this: [], running, next: [], later: [] };
   for (const e of upcoming.filter((e) => !running.includes(e))) {
     const w = Math.floor((mondayOf(eff(e)) - thisMon) / 7);
     (w <= 0 ? groups.this : w === 1 ? groups.next : groups.later).push(e);
