@@ -289,12 +289,12 @@ ${(() => {
   const hero = slim ? `
   <section class="hero hero-slim">
     <h1 class="sr">${esc(site.name)}</h1>
-    <p class="intro">Viðburðir og annað markvert í hverfinu.</p>
+    <p class="intro">Viðburðir og annað markvert sem er í gangi í hverfinu</p>
   </section>` : `
   <section class="hero">
     <span class="pill">Hlíðar · Reykjavík</span>
     <h1>${esc(site.name)}</h1>
-    <p class="intro">Viðburðir og annað markvert í hverfinu.</p>
+    <p class="intro">Viðburðir og annað markvert sem er í gangi í hverfinu</p>
 ${site.signupAction ? `
     <form class="signup" action="${esc(site.signupAction)}" method="post">
       <label for="netfang" class="sr">Netfang</label>
@@ -309,7 +309,7 @@ ${site.signupAction ? `
     <div class="filters" role="group" aria-label="Sía viðburði" hidden>
       <button type="button" class="chip is-on" data-filter="all">Allt</button>
       <button type="button" class="chip" data-filter="this">Þessi vika</button>
-      <button type="button" class="chip" data-filter="helgin">Helgin</button>${upcoming.some(isCourse) ? `
+${upcoming.some(isCourse) ? `
       <button type="button" class="chip" data-filter="course">Námskeið</button>` : ""}
     </div>
 ${sections || '    <p class="empty">Engir viðburðir á dagskrá núna. Veistu um eitthvað? Sendu okkur línu.</p>'}
