@@ -289,12 +289,12 @@ ${(() => {
   const hero = slim ? `
   <section class="hero hero-slim">
     <h1 class="sr">${esc(site.name)}</h1>
-    <p class="intro">Viðburðir, nýir staðir og annað markvert í hverfinu, tekið saman einu sinni í viku.</p>
+    <p class="intro">Viðburðir og annað markvert í hverfinu.</p>
   </section>` : `
   <section class="hero">
     <span class="pill">Hlíðar · Reykjavík</span>
     <h1>${esc(site.name)}</h1>
-    <p class="intro">Viðburðir, nýir staðir og annað markvert í hverfinu, tekið saman einu sinni í viku.</p>
+    <p class="intro">Viðburðir og annað markvert í hverfinu.</p>
 ${site.signupAction ? `
     <form class="signup" action="${esc(site.signupAction)}" method="post">
       <label for="netfang" class="sr">Netfang</label>
