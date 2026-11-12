@@ -178,5 +178,5 @@ details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
 }
 
 /* Year divider inside the upcoming list */
-.year-break { display: flex; align-items: center; gap: 12px; margin: 22px 4px 12px; color: var(--ink-faint); font-size: 13px; font-weight: 600; letter-spacing: 0.08em; }
-.year-break::before, .year-break::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+.year-break { display: flex; align-items: center; gap: 12px; margin: 22px 4px 12px; color: var(--blue); font-size: 13px; font-weight: 600; letter-spacing: 0.08em; }
+.year-break::before, .year-break::after { content: ""; flex: 1; height: 2px; border-radius: 1px; background: var(--yellow); }
