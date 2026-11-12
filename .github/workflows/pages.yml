@@ -6,7 +6,8 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: "15 0 * * *"   # 00:15 UTC, which is 00:15 in Iceland
+    - cron: "23 0 * * *"   # 00:23 UTC, which is 00:23 in Iceland
+    - cron: "47 5 * * *"   # backup run at 05:47 in case the first is skipped
   workflow_dispatch:
 
 permissions:
