@@ -272,7 +272,16 @@ const pages = {};
     .map(([k, list]) => `
     <section class="group" data-group="${k}">
       <h2 class="week">${heading[k]}</h2>
-${list.map((e) => card(e, { root: "", week: k, helgin: [0, 6].includes(dow(toDay(e.date))) && toDay(e.date) >= todayN && toDay(e.date) < horizon })).join("\n")}
+${(() => {
+        // A thin "2027" divider where the list crosses into a later year.
+        let yr = +TODAY.slice(0, 4);
+        return list.map((e) => {
+          const y = +e.date.slice(0, 4);
+          const brk = k !== "running" && y > yr ? `      <div class="year-break"><span>${y}</span></div>\n` : "";
+          if (k !== "running" && y > yr) yr = y;
+          return brk + card(e, { root: "", week: k, helgin: [0, 6].includes(dow(toDay(e.date))) && toDay(e.date) >= todayN && toDay(e.date) < horizon });
+        }).join("\n");
+      })()}
     </section>`).join("\n");
 
   // Without a signup box the big header only repeats the top bar, so it shrinks to a single intro line.
