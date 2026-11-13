@@ -182,3 +182,4 @@ details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
 
 /* Filters set [hidden]; make sure no display rule on cards or groups overrides it. */
 .card[hidden], .group[hidden] { display: none !important; }
+.hero-none { padding: 0; border-bottom: 0; }
