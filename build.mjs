@@ -191,7 +191,7 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
 }
 
 const NAV = [
-  ["index", "Í vikunni", ""],
+  ["index", "Framundan", ""],
   ["thjonusta", "Þjónusta", "thjonusta/"],
   ["lidnir", "Liðnir viðburðir", "lidnir/"],
   ["um", "Um", "um/"],
