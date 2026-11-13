@@ -33,7 +33,7 @@ h1, h2, h3, p { margin: 0; }
 
 /* header */
 .top { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; padding: 22px var(--gutter); background: var(--blue); }
-.wordmark { font-size: 24px; font-weight: 700; color: #fff; }
+.wordmark { font-size: 29px; font-weight: 700; color: #fff; }
 .top nav { display: flex; gap: 6px; flex-wrap: wrap; }
 .top nav a { padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--blue-on-dark); }
 .top nav a:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
@@ -149,7 +149,7 @@ details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
 /* phones */
 @media (max-width: 680px) {
   .top { padding-top: 16px; padding-bottom: 16px; }
-  .wordmark { font-size: 22px; }
+  .wordmark { font-size: 26px; }
   .top nav { width: 100%; gap: 2px; flex-wrap: nowrap; margin: 0 -8px; }
   .top nav a { padding: 8px 11px; font-size: 13.5px; white-space: nowrap; }
   .hero { padding-top: 32px; padding-bottom: 32px; }
