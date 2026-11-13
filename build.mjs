@@ -336,7 +336,10 @@ ${tipCard}
 ${html || '    <p class="empty">Ekkert hér ennþá. Viðburðir færast hingað sjálfkrafa þegar þeir eru liðnir.</p>'}
   </div>`;
   pages.lidnir = layout({ page: "lidnir", title: "Liðnir viðburðir", root: "../",
-    hero: pageHero("Liðnir viðburðir", "Það sem var á dagskrá í hverfinu. Nýjasta efst."), main });
+    hero: `
+  <section class="hero hero-none">
+    <h1 class="sr">Liðnir viðburðir</h1>
+  </section>`, main });
 }
 
 // Directory.
