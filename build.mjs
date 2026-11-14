@@ -152,7 +152,7 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
   const nowLabel = n === todayN ? "Í DAG" : "Í GANGI";
   const facts = e.place || when ? `<dl class="facts">${e.place ? `<div><dt>Hvar</dt><dd>${esc(e.place)}</dd></div>` : ""}${when ? `<div><dt>Hvenær</dt><dd>${esc(when)}</dd></div>` : ""}</dl>` : "";
   const head = `
-      <div class="tile${now ? " is-now" : weekend ? " is-weekend" : ""}" aria-label="${now ? (n === todayN ? "Í dag, " : "Í gangi, ") : ""}${esc(WD[dow(n)])} ${+e.date.slice(8, 10)}. ${esc(MON[+e.date.slice(5, 7) - 1])}">
+      <div class="tile${weekend ? " is-weekend" : ""}${now ? " is-now" : ""}" aria-label="${now ? (n === todayN ? "Í dag, " : "Í gangi, ") : ""}${esc(WD[dow(n)])} ${+e.date.slice(8, 10)}. ${esc(MON[+e.date.slice(5, 7) - 1])}">
         <span class="wd">${now ? nowLabel : WD[dow(n)]}</span><span class="d">${+e.date.slice(8, 10)}</span><span class="m">${MON[+e.date.slice(5, 7) - 1]}</span>
       </div>
       <div class="body">
