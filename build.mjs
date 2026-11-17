@@ -125,6 +125,21 @@ past.sort((a, b) => b.date.localeCompare(a.date) || a.time.localeCompare(b.time)
 const fmtLong = (s) => `${+s.slice(8, 10)}. ${MON[+s.slice(5, 7) - 1]}`;
 const clock = (t) => (/^\d/.test(t) ? `kl. ${t}` : t);
 
+// Notices (road closures and the like): shown only while fra <= today <= til.
+const notices = existsSync(join(ROOT, "data/tilkynningar.csv"))
+  ? readCsv(join(ROOT, "data/tilkynningar.csv"))
+      .map((r) => ({ from: parseDate(r.fra), to: parseDate(r.til), title: r.titill, text: r.texti, link: r.hlekkur }))
+      .filter((n) => n.title && n.to && (!n.from || toDay(n.from) <= todayN) && toDay(n.to) >= todayN)
+      .sort((a, b) => a.to.localeCompare(b.to))
+  : [];
+const noticeHtml = notices.length ? `
+    <aside class="notices" aria-label="Tilkynningar">
+${notices.map((n) => `      <div class="notice">
+        <p class="notice-head"><strong>${esc(n.title)}</strong><span class="until">til ${fmtLong(n.to)}</span></p>${n.text ? `
+        <p class="notice-text">${esc(n.text)}${n.link ? ` <a href="${esc(n.link)}" target="_blank" rel="noopener">Nánar →</a>` : ""}</p>` : ""}
+      </div>`).join("\n")}
+    </aside>` : "";
+
 // Width and height of a JPEG or PNG in data/images (no dependencies); null if unknown.
 function imgSize(name) {
   try {
@@ -305,7 +320,7 @@ ${site.signupAction ? `
   </section>`;
 
   const main = `
-  <div class="wrap">
+  <div class="wrap">${noticeHtml}
     <div class="filters" role="group" aria-label="Sía viðburði" hidden>
       <button type="button" class="chip is-on" data-filter="all">Allt</button>
       <button type="button" class="chip" data-filter="this">Þessi vika</button>
