@@ -154,6 +154,7 @@ details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
   .top nav a { padding: 8px 11px; font-size: 13.5px; white-space: nowrap; }
   .hero { padding-top: 32px; padding-bottom: 32px; }
   .hero-slim { padding-top: 16px; padding-bottom: 2px; }
+  .hero-slim .intro { font-size: 17px; }
   .wrap { margin-top: 32px; }
   .card { display: grid; grid-template-columns: 50px 1fr; gap: 6px 12px; padding: 9px 12px; align-items: start; }
   .tile { width: 50px; height: 58px; border-radius: 10px; }
