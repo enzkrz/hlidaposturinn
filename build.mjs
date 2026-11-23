@@ -157,7 +157,7 @@ function imgSize(name) {
   return null;
 }
 
-function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
+function card(e, { muted = false, week = "", helgin = false, root = "", same = false } = {}) {
   const n = toDay(e.date);
   const weekend = [0, 6].includes(dow(n)) || isHoliday(e.date);
   const when = [clock(e.time), e.end !== e.date ? `til ${fmtLong(e.end)}` : ""].filter(Boolean).join(" · ");
@@ -176,19 +176,19 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
         ${facts}
         ${e.desc ? `<p class="desc">${esc(e.desc)}</p>` : ""}
       </div>`;
-  const attrs = `data-week="${week}"${helgin ? ' data-helgin="1"' : ""}${isCourse(e) ? ' data-course="1"' : ""}`;
+  const attrs = `data-date="${e.date}" data-week="${week}"${helgin ? ' data-helgin="1"' : ""}${isCourse(e) ? ' data-course="1"' : ""}`;
   const dim = e.img ? imgSize(e.img) : null;
   const wide = !!dim && dim.w / dim.h > 1.3;
   const paras = (e.more || "").split("||").map((t) => t.trim()).filter(Boolean);
   if (!paras.length && !e.img) {
     return `
-    <article class="card${muted ? " is-past" : ""}${now ? " is-now" : ""}" ${attrs}>${head}
+    <article class="card${same ? " same-day" : ""}${muted ? " is-past" : ""}${now ? " is-now" : ""}" ${attrs}>${head}
       ${e.link ? `<a class="btn${e.action ? " btn-action" : ""}" href="${esc(e.link)}" rel="noopener">${esc(e.action || "Nánar")} <span aria-hidden="true">→</span></a>` : ""}
     </article>`;
   }
   // With a longer text or a picture the whole card opens in place (plain <details>, works without JavaScript).
   return `
-    <article class="card has-more${muted ? " is-past" : ""}${now ? " is-now" : ""}" ${attrs}>
+    <article class="card has-more${same ? " same-day" : ""}${muted ? " is-past" : ""}${now ? " is-now" : ""}" ${attrs}>
       <details>
         <summary class="row">${head}
           <span class="btn btn-more"><span class="t-closed">Meira</span><span class="t-open">Minna</span> <span class="chev" aria-hidden="true"></span></span>
@@ -290,11 +290,14 @@ const pages = {};
 ${(() => {
         // A thin "2027" divider where the list crosses into a later year.
         let yr = +TODAY.slice(0, 4);
+        let prev = "";
         return list.map((e) => {
+          const same = k !== "running" && e.date === prev;
+          prev = e.date;
           const y = +e.date.slice(0, 4);
           const brk = k !== "running" && y > yr ? `      <div class="year-break"><span>${y}</span></div>\n` : "";
           if (k !== "running" && y > yr) yr = y;
-          return brk + card(e, { root: "", week: k, helgin: [0, 6].includes(dow(toDay(e.date))) && toDay(e.date) >= todayN && toDay(e.date) < horizon });
+          return brk + card(e, { root: "", same, week: k, helgin: [0, 6].includes(dow(toDay(e.date))) && toDay(e.date) >= todayN && toDay(e.date) < horizon });
         }).join("\n");
       })()}
     </section>`).join("\n");
@@ -336,6 +339,7 @@ ${tipCard}
 // Archive: past events, newest first, grouped by month.
 {
   let cur = "", html = "";
+  let prevPast = "";
   for (const e of past) {
     const key = e.date.slice(0, 7);
     if (key !== cur) {
@@ -343,7 +347,8 @@ ${tipCard}
       cur = key;
       html += `    <section class="group">\n      <h2 class="week">${MONTH_NAMES[+key.slice(5, 7) - 1]} ${key.slice(0, 4)}</h2>\n`;
     }
-    html += card(e, { muted: true, root: "../" }) + "\n";
+    html += card(e, { muted: true, root: "../", same: e.date === prevPast }) + "\n";
+    prevPast = e.date;
   }
   if (cur) html += "    </section>\n";
   const main = `
