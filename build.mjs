@@ -165,7 +165,7 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
   // Happening today (or a multi-day event that is under way): blue frame and a blue date tile.
   const now = !muted && n <= todayN && toDay(e.end) >= todayN && !(isCourse(e) && n < todayN);
   const nowLabel = n === todayN ? "Í DAG" : "Í GANGI";
-  const facts = e.place || when ? `<dl class="facts">${e.place ? `<div><dt>Hvar</dt><dd>${esc(e.place)}</dd></div>` : ""}${when ? `<div><dt>Hvenær</dt><dd>${esc(when)}</dd></div>` : ""}</dl>` : "";
+  const facts = e.place || when ? `<p class="meta">${when ? `<strong>${esc(when)}</strong>` : ""}${e.place && when ? " · " : ""}${e.place ? esc(e.place) : ""}</p>` : "";
   const head = `
       <div class="tile${weekend ? " is-weekend" : ""}${now ? " is-now" : ""}" aria-label="${now ? (n === todayN ? "Í dag, " : "Í gangi, ") : ""}${esc(WD[dow(n)])} ${+e.date.slice(8, 10)}. ${esc(MON[+e.date.slice(5, 7) - 1])}">
         <span class="wd">${now ? nowLabel : WD[dow(n)]}</span><span class="d">${+e.date.slice(8, 10)}</span><span class="m">${MON[+e.date.slice(5, 7) - 1]}</span>
@@ -173,8 +173,8 @@ function card(e, { muted = false, week = "", helgin = false, root = "" } = {}) {
       <div class="body">
         ${e.tag ? `<span class="tag${tagCls}"><i></i>${esc(e.tag)}</span>` : ""}
         <h3>${esc(e.title)}</h3>
-        ${e.desc ? `<p>${esc(e.desc)}</p>` : ""}
         ${facts}
+        ${e.desc ? `<p class="desc">${esc(e.desc)}</p>` : ""}
       </div>`;
   const attrs = `data-week="${week}"${helgin ? ' data-helgin="1"' : ""}${isCourse(e) ? ' data-course="1"' : ""}`;
   const dim = e.img ? imgSize(e.img) : null;
