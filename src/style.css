@@ -216,7 +216,7 @@ details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
 .hero-slim { align-items: flex-start; text-align: left; padding-left: var(--edge); padding-right: var(--edge); }
 
 /* Day headings replace the per-card date tile in the lists. */
-.day { margin: 22px 4px 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+.day { margin: 22px 4px 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); }
 .day.is-weekend { color: var(--weekend); }
 .day[hidden] { display: none; }
 .today-flag { margin-left: 8px; padding: 2px 9px; border-radius: 999px; background: var(--blue); color: #fff; font-size: 11px; letter-spacing: 0.06em; vertical-align: 1px; }
