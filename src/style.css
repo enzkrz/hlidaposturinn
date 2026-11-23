@@ -192,3 +192,17 @@ details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
 .notice .until { font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: var(--weekend); white-space: nowrap; }
 .notice-text { margin: 4px 0 0; font-size: 14.5px; line-height: 1.5; }
 .notice-text a { font-weight: 600; text-decoration: underline; }
+
+/* Card refinements: time and place on one line under the title; quiet disclosure chevron instead of a loud "Meira" button. */
+.meta { margin: 1px 0 3px; font-size: 14px; line-height: 1.4; color: var(--ink); }
+.meta strong { font-weight: 600; color: var(--blue); }
+.card .desc { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.card summary .btn.btn-more { width: 34px; height: 34px; min-width: 0; padding: 0; border-radius: 50%; background: var(--surface-300); color: var(--blue); justify-content: center; position: relative; }
+.card summary .btn.btn-more:hover, .card summary:hover .btn.btn-more { background: var(--border); }
+.btn-more .t-closed, .btn-more .t-open { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.btn-more { gap: 0; }
+@media (max-width: 680px) {
+  .card.has-more summary.row { grid-template-columns: 50px 1fr 34px; align-items: center; }
+  .card.has-more summary.row .tile { align-self: start; }
+  .card.has-more summary.row .btn-more { grid-column: 3; grid-row: 1; align-self: center; }
+}
