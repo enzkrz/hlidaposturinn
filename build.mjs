@@ -60,6 +60,7 @@ const TODAY = process.env.TODAY || new Date().toISOString().slice(0, 10);
 const todayN = toDay(TODAY);
 
 const WD = ["SUN", "MÁN", "ÞRI", "MIÐ", "FIM", "FÖS", "LAU"];
+const WDLONG = ["Sunnudagur", "Mánudagur", "Þriðjudagur", "Miðvikudagur", "Fimmtudagur", "Föstudagur", "Laugardagur"];
 const MON = ["jan", "feb", "mar", "apr", "maí", "jún", "júl", "ágú", "sep", "okt", "nóv", "des"];
 const MONTH_NAMES = ["janúar", "febrúar", "mars", "apríl", "maí", "júní", "júlí", "ágúst", "september", "október", "nóvember", "desember"];
 const dow = (n) => new Date(n * 86400000).getUTCDay(); // 0 = Sunday
@@ -157,7 +158,14 @@ function imgSize(name) {
   return null;
 }
 
-function card(e, { muted = false, week = "", helgin = false, root = "", same = false } = {}) {
+// Day heading shown above the cards of one day (weekends and holidays tinted, today marked).
+function dayHeading(date) {
+  const n = toDay(date);
+  const weekend = [0, 6].includes(dow(n)) || isHoliday(date);
+  return `      <h3 class="day${weekend ? " is-weekend" : ""}${n === todayN ? " is-today" : ""}" data-day="${date}">${WDLONG[dow(n)]} ${+date.slice(8, 10)}. ${MONTH_NAMES[+date.slice(5, 7) - 1]}${n === todayN ? ' <span class="today-flag">Í dag</span>' : ""}</h3>\n`;
+}
+
+function card(e, { muted = false, week = "", helgin = false, root = "", tile = true } = {}) {
   const n = toDay(e.date);
   const weekend = [0, 6].includes(dow(n)) || isHoliday(e.date);
   const when = [clock(e.time), e.end !== e.date ? `til ${fmtLong(e.end)}` : ""].filter(Boolean).join(" · ");
@@ -166,10 +174,12 @@ function card(e, { muted = false, week = "", helgin = false, root = "", same = f
   const now = !muted && n <= todayN && toDay(e.end) >= todayN && !(isCourse(e) && n < todayN);
   const nowLabel = n === todayN ? "Í DAG" : "Í GANGI";
   const facts = e.place || when ? `<p class="meta">${when ? `<strong>${esc(when)}</strong>` : ""}${e.place && when ? " · " : ""}${e.place ? esc(e.place) : ""}</p>` : "";
-  const head = `
+  const tileHtml = `
       <div class="tile${weekend ? " is-weekend" : ""}${now ? " is-now" : ""}" aria-label="${now ? (n === todayN ? "Í dag, " : "Í gangi, ") : ""}${esc(WD[dow(n)])} ${+e.date.slice(8, 10)}. ${esc(MON[+e.date.slice(5, 7) - 1])}">
         <span class="wd">${now ? nowLabel : WD[dow(n)]}</span><span class="d">${+e.date.slice(8, 10)}</span><span class="m">${MON[+e.date.slice(5, 7) - 1]}</span>
       </div>
+`;
+  const head = `${tile ? tileHtml : ""}
       <div class="body">
         ${e.tag ? `<span class="tag${tagCls}"><i></i>${esc(e.tag)}</span>` : ""}
         <h3>${esc(e.title)}</h3>
@@ -182,13 +192,13 @@ function card(e, { muted = false, week = "", helgin = false, root = "", same = f
   const paras = (e.more || "").split("||").map((t) => t.trim()).filter(Boolean);
   if (!paras.length && !e.img) {
     return `
-    <article class="card${same ? " same-day" : ""}${muted ? " is-past" : ""}${now ? " is-now" : ""}" ${attrs}>${head}
+    <article class="card${tile ? "" : " no-tile"}${muted ? " is-past" : ""}${now ? " is-now" : ""}" ${attrs}>${head}
       ${e.link ? `<a class="btn${e.action ? " btn-action" : ""}" href="${esc(e.link)}" rel="noopener">${esc(e.action || "Nánar")} <span aria-hidden="true">→</span></a>` : ""}
     </article>`;
   }
   // With a longer text or a picture the whole card opens in place (plain <details>, works without JavaScript).
   return `
-    <article class="card has-more${same ? " same-day" : ""}${muted ? " is-past" : ""}${now ? " is-now" : ""}" ${attrs}>
+    <article class="card has-more${tile ? "" : " no-tile"}${muted ? " is-past" : ""}${now ? " is-now" : ""}" ${attrs}>
       <details>
         <summary class="row">${head}
           <span class="btn btn-more"><span class="t-closed">Meira</span><span class="t-open">Minna</span> <span class="chev" aria-hidden="true"></span></span>
@@ -292,12 +302,14 @@ ${(() => {
         let yr = +TODAY.slice(0, 4);
         let prev = "";
         return list.map((e) => {
-          const same = k !== "running" && e.date === prev;
-          prev = e.date;
+          const n = toDay(e.date);
+          const headed = k !== "running" && n >= todayN;
+          const dayBrk = headed && e.date !== prev ? dayHeading(e.date) : "";
+          if (headed) prev = e.date;
           const y = +e.date.slice(0, 4);
           const brk = k !== "running" && y > yr ? `      <div class="year-break"><span>${y}</span></div>\n` : "";
           if (k !== "running" && y > yr) yr = y;
-          return brk + card(e, { root: "", same, week: k, helgin: [0, 6].includes(dow(toDay(e.date))) && toDay(e.date) >= todayN && toDay(e.date) < horizon });
+          return brk + dayBrk + card(e, { root: "", tile: !headed, week: k, helgin: [0, 6].includes(dow(toDay(e.date))) && toDay(e.date) >= todayN && toDay(e.date) < horizon });
         }).join("\n");
       })()}
     </section>`).join("\n");
@@ -347,7 +359,8 @@ ${tipCard}
       cur = key;
       html += `    <section class="group">\n      <h2 class="week">${MONTH_NAMES[+key.slice(5, 7) - 1]} ${key.slice(0, 4)}</h2>\n`;
     }
-    html += card(e, { muted: true, root: "../", same: e.date === prevPast }) + "\n";
+    if (e.date !== prevPast) html += dayHeading(e.date);
+    html += card(e, { muted: true, root: "../", tile: false }) + "\n";
     prevPast = e.date;
   }
   if (cur) html += "    </section>\n";
