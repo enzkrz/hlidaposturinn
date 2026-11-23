@@ -260,3 +260,27 @@ body { background: var(--page); }
 .day.is-today { position: relative; }
 .day.is-today::before { content: ""; position: absolute; left: -10px; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; background: var(--yellow); }
 .chip { background: #fff; }
+
+/* Colour and contrast, round two: tinted category pills with coloured text, a coloured edge on each card,
+   a slightly deeper page so white cards lift, day headings with a rule, a small yellow accent under the week heading. */
+:root { --page: #f3eee5; }
+.card { --c: var(--border-strong); --c-tint: var(--surface-300); --c-ink: var(--ink-muted); border-left: 4px solid var(--c); }
+.card[data-cat="kirkja"] { --c: #7a6a9e; --c-tint: #ece8f4; --c-ink: #54457a; }
+.card[data-cat="ithrottir"] { --c: #4f8a5b; --c-tint: #e3f0e5; --c-ink: #2f6a3d; }
+.card[data-cat="skemmtun"] { --c: #c0613f; --c-tint: #f8e6de; --c-ink: #8f3f22; }
+.card[data-cat="menning"] { --c: #2f8f9d; --c-tint: #dff0f2; --c-ink: #1b6772; }
+.card[data-cat="samfelag"] { --c: #d99b44; --c-tint: #f9ebd6; --c-ink: #8a5a13; }
+.card[data-cat="markadur"] { --c: #b5793a; --c-tint: #f5e8da; --c-ink: #7d4f1c; }
+.card[data-cat="i-nagrenninu"] { --c: #9aa1ab; --c-tint: #eceef1; --c-ink: #5a626d; }
+.card[data-cat="namskeid"] { --c: #2b6ea3; --c-tint: #e0ecf6; --c-ink: #1c4f7a; }
+.card .tag { background: var(--c-tint); color: var(--c-ink); }
+.card .tag i { background: var(--c); }
+.card:hover { border-left-color: var(--c); }
+.card.has-more:hover { border-left-color: var(--c); }
+.card.is-past { --c: var(--border-strong); }
+.day { display: flex; align-items: center; gap: 14px; font-size: 16.5px; }
+.day::after { content: ""; flex: 1; height: 1px; background: var(--border-strong); }
+.day.is-weekend::after { background: #e8c9bb; }
+.week::after { content: ""; display: block; width: 36px; height: 3px; margin-top: 8px; border-radius: 2px; background: var(--yellow); }
+.week + .day { margin-top: 14px; }
+@media (max-width: 680px) { .day { font-size: 16px; } }
