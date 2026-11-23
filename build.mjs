@@ -186,7 +186,7 @@ function card(e, { muted = false, week = "", helgin = false, root = "", tile = t
         ${facts}
         ${e.desc ? `<p class="desc">${esc(e.desc)}</p>` : ""}
       </div>`;
-  const attrs = `data-date="${e.date}" data-week="${week}"${helgin ? ' data-helgin="1"' : ""}${isCourse(e) ? ' data-course="1"' : ""}`;
+  const attrs = `data-cat="${slug(e.tag || "")}" data-date="${e.date}" data-week="${week}"${helgin ? ' data-helgin="1"' : ""}${isCourse(e) ? ' data-course="1"' : ""}`;
   const dim = e.img ? imgSize(e.img) : null;
   const wide = !!dim && dim.w / dim.h > 1.3;
   const paras = (e.more || "").split("||").map((t) => t.trim()).filter(Boolean);

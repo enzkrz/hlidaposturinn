@@ -240,3 +240,23 @@ details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
   .chip { padding: 8px 14px; }
   .week { font-size: 22px; }
 }
+
+/* Colour: warm page, white cards, ink titles (blue is for structure and actions), a muted dot colour per category, yellow for "today". */
+:root { --ink: #1f2a33; --page: #faf7f1; }
+body { background: var(--page); }
+.card { border-color: transparent; box-shadow: 0 1px 2px rgba(31, 42, 51, 0.06), 0 0 0 1px rgba(31, 42, 51, 0.04); }
+.card.has-more:hover { background: #fff; border-color: transparent; box-shadow: 0 2px 8px rgba(31, 42, 51, 0.1), 0 0 0 1px rgba(31, 42, 51, 0.06); }
+.card h3 { color: var(--ink); }
+.card.is-past h3 { color: var(--ink-muted); }
+.card[data-cat="kirkja"] .tag i { background: #7a6a9e; }
+.card[data-cat="ithrottir"] .tag i, .card[data-cat="iprottir"] .tag i { background: #4f8a5b; }
+.card[data-cat="skemmtun"] .tag i { background: #c0613f; }
+.card[data-cat="menning"] .tag i { background: #2f8f9d; }
+.card[data-cat="samfelag"] .tag i { background: #d99b44; }
+.card[data-cat="markadur"] .tag i { background: #b5793a; }
+.card[data-cat="i-nagrenninu"] .tag i { background: #9aa1ab; }
+.card[data-cat="namskeid"] .tag i { background: #2b6ea3; }
+.today-flag { background: var(--yellow); color: var(--blue); }
+.day.is-today { position: relative; }
+.day.is-today::before { content: ""; position: absolute; left: -10px; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; background: var(--yellow); }
+.chip { background: #fff; }
