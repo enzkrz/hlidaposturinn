@@ -206,3 +206,16 @@ details[open] .chev { margin-top: 3px; transform: rotate(-135deg); }
   .card.has-more summary.row .tile { align-self: start; }
   .card.has-more summary.row .btn-more { grid-column: 3; grid-row: 1; align-self: center; }
 }
+
+/* Same-day cards: date tile only on the first card of the day (kept in the accessibility tree). */
+.card.same-day .tile { opacity: 0; }
+.card.same-day { margin-top: -2px; }
+
+/* One shared column: header, intro, cards and footer start and end on the same edges. */
+:root { --edge: max(var(--gutter), calc((100% - 1000px) / 2)); }
+.top { padding-left: var(--edge); padding-right: var(--edge); }
+.foot { padding-left: var(--edge); padding-right: var(--edge); }
+.hero-slim { align-items: flex-start; text-align: left; padding-left: var(--edge); padding-right: var(--edge); }
+@media (max-width: 680px) {
+  .card.same-day { margin-top: -2px; }
+}

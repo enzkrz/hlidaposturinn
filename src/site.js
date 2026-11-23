@@ -15,6 +15,14 @@
         c.hidden = !(f === "all" || (f === "this" && c.dataset.week === "this") || (f === "course" && c.dataset.course === "1"));
       });
       groups.forEach(function (g) { g.hidden = !g.querySelector(".card:not([hidden])"); });
+      // Show the date tile only on the first visible card of each day.
+      groups.forEach(function (g) {
+        var prev = "";
+        [].forEach.call(g.querySelectorAll(".card:not([hidden])"), function (c) {
+          c.classList.toggle("same-day", c.dataset.date === prev && !!prev);
+          prev = c.dataset.date;
+        });
+      });
     });
   }
   // Until a mailing list is connected (signupAction in site.json), the form only explains itself.
