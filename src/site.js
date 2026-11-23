@@ -15,13 +15,14 @@
         c.hidden = !(f === "all" || (f === "this" && c.dataset.week === "this") || (f === "course" && c.dataset.course === "1"));
       });
       groups.forEach(function (g) { g.hidden = !g.querySelector(".card:not([hidden])"); });
-      // Show the date tile only on the first visible card of each day.
-      groups.forEach(function (g) {
-        var prev = "";
-        [].forEach.call(g.querySelectorAll(".card:not([hidden])"), function (c) {
-          c.classList.toggle("same-day", c.dataset.date === prev && !!prev);
-          prev = c.dataset.date;
-        });
+      // A day heading is shown only while at least one of its cards is visible.
+      [].forEach.call(document.querySelectorAll(".day"), function (d) {
+        var el = d.nextElementSibling, any = false;
+        while (el && !el.classList.contains("day") && !el.classList.contains("year-break")) {
+          if (el.classList.contains("card") && !el.hidden) { any = true; break; }
+          el = el.nextElementSibling;
+        }
+        d.hidden = !any;
       });
     });
   }
