@@ -284,3 +284,25 @@ body { background: var(--page); }
 @media (max-width: 680px) { .day { font-size: 16px; } }
 
 .card.is-past { border-color: var(--border); }
+
+/* Round 3: meta as a wrapping row (time, place, tag; on phones time + tag first, place below), quieter open cards, slimmer phone chrome. */
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 0; }
+.meta .when + .place::before, .meta .place + .tag { margin-left: 0; }
+.meta .when + .place::before { content: "\00b7"; margin: 0 7px; color: var(--ink-muted); }
+.meta .tag { margin-left: 10px; }
+.meta .when + .tag, .meta .place + .tag { margin-left: 10px; }
+.card details[open] .desc { display: none; }
+.more-text p { font-size: 15px; line-height: 1.55; color: var(--ink); }
+@media (max-width: 680px) {
+  .meta .tag { order: 2; margin-left: 8px; }
+  .meta .place { order: 3; flex-basis: 100%; }
+  .meta .when + .place::before { display: none; }
+  .top { padding-top: 14px; padding-bottom: 12px; gap: 6px 16px; }
+  .wordmark { font-size: 26px; }
+  .top nav a { padding: 7px 14px; font-size: 13.5px; }
+  .hero-slim { padding-top: 12px; }
+  .hero-slim .intro { font-size: 16.5px; }
+  .hero-slim + main .wrap, .hero-slim + .wrap { margin-top: 14px; }
+  .chip { padding: 7px 13px; }
+  .week { margin-top: 22px; font-size: 21px; }
+}
