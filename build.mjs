@@ -168,13 +168,13 @@ function dayHeading(date) {
 function card(e, { muted = false, week = "", helgin = false, root = "", tile = true } = {}) {
   const n = toDay(e.date);
   const weekend = [0, 6].includes(dow(n)) || isHoliday(e.date);
-  const when = [clock(e.time), e.end !== e.date ? `til ${fmtLong(e.end)}` : ""].filter(Boolean).join(" · ");
+  const when = [clock(e.time), e.end !== e.date ? (toDay(e.date) < todayN ? `frá ${fmtLong(e.date)} til ${fmtLong(e.end)}` : `til ${fmtLong(e.end)}`) : ""].filter(Boolean).join(" · ");
   const tagCls = slug(e.tag) === "opnun" ? " tag-opnun" : "";
   // Happening today (or a multi-day event that is under way): blue frame and a blue date tile.
   const now = !muted && n <= todayN && toDay(e.end) >= todayN && !(isCourse(e) && n < todayN);
   const nowLabel = n === todayN ? "Í DAG" : "Í GANGI";
   const tagHtml = e.tag ? `<span class="tag${tagCls}"><i></i>${esc(e.tag)}</span>` : "";
-  const facts = e.place || when || tagHtml ? `<p class="meta">${when ? `<strong>${esc(when)}</strong>` : ""}${e.place && when ? " · " : ""}${e.place ? esc(e.place) : ""}${tagHtml}</p>` : "";
+  const facts = e.place || when || tagHtml ? `<p class="meta">${when ? `<strong class="when">${esc(when)}</strong>` : ""}${e.place ? `<span class="place">${esc(e.place)}</span>` : ""}${tagHtml}</p>` : "";
   const tileHtml = `
       <div class="tile${weekend ? " is-weekend" : ""}${now ? " is-now" : ""}" aria-label="${now ? (n === todayN ? "Í dag, " : "Í gangi, ") : ""}${esc(WD[dow(n)])} ${+e.date.slice(8, 10)}. ${esc(MON[+e.date.slice(5, 7) - 1])}">
         <span class="wd">${now ? nowLabel : WD[dow(n)]}</span><span class="d">${+e.date.slice(8, 10)}</span><span class="m">${MON[+e.date.slice(5, 7) - 1]}</span>
@@ -309,7 +309,7 @@ ${(() => {
           const y = +e.date.slice(0, 4);
           const brk = k !== "running" && y > yr ? `      <div class="year-break"><span>${y}</span></div>\n` : "";
           if (k !== "running" && y > yr) yr = y;
-          return brk + dayBrk + card(e, { root: "", tile: !headed, week: k, helgin: [0, 6].includes(dow(toDay(e.date))) && toDay(e.date) >= todayN && toDay(e.date) < horizon });
+          return brk + dayBrk + card(e, { root: "", tile: false, week: k, helgin: [0, 6].includes(dow(toDay(e.date))) && toDay(e.date) >= todayN && toDay(e.date) < horizon });
         }).join("\n");
       })()}
     </section>`).join("\n");
