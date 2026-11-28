@@ -258,7 +258,6 @@ body { background: var(--page); }
 .card[data-cat="namskeid"] .tag i { background: #2b6ea3; }
 .today-flag { background: var(--yellow); color: var(--blue); }
 .day.is-today { position: relative; }
-.day.is-today::before { content: ""; position: absolute; left: -10px; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; background: var(--yellow); }
 .chip { background: #fff; }
 
 /* Colour and contrast, round two: tinted category pills with coloured text, a coloured edge on each card,
@@ -278,7 +277,6 @@ body { background: var(--page); }
 .card.is-past { --c: var(--border-strong); }
 .day { display: flex; align-items: center; gap: 14px; font-size: 16.5px; }
 .day::after { content: ""; flex: 1; height: 1px; background: var(--border-strong); }
-.day.is-weekend::after { background: #e8c9bb; }
 .week::after { content: ""; display: block; width: 36px; height: 3px; margin-top: 8px; border-radius: 2px; background: var(--yellow); }
 .week + .day { margin-top: 14px; }
 @media (max-width: 680px) { .day { font-size: 16px; } }
